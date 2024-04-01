@@ -1,0 +1,18 @@
+CREATE PROCEDURE DailyTransaction
+    @start_date DATE,
+    @end_date DATE
+AS
+BEGIN
+    SELECT
+        Date,
+        COUNT(*) AS TotalTransactions,
+        SUM(Amount) AS TotalAmount
+    FROM
+        YourTableName
+    WHERE
+        Date BETWEEN @start_date AND @end_date
+    GROUP BY
+        Date
+    ORDER BY
+        Date;
+END;
