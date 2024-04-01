@@ -1,0 +1,41 @@
+-- Membuat tabel DimAccount
+CREATE TABLE DimAccount (
+    AccountID INT PRIMARY KEY,
+    AccountName NVARCHAR(100),
+    -- Tambahkan kolom lain sesuai kebutuhan
+);
+
+-- Membuat tabel DimCustomer
+CREATE TABLE DimCustomer (
+    CustomerID INT PRIMARY KEY,
+    CustomerName NVARCHAR(100),
+    Address NVARCHAR(100),
+    CityName NVARCHAR(50),
+    StateName NVARCHAR(50),
+    Age INT,
+    Gender NVARCHAR(10),
+    Email NVARCHAR(100),
+    -- Tambahkan kolom lain sesuai kebutuhan
+);
+
+-- Membuat tabel DimBranch
+CREATE TABLE DimBranch (
+    BranchID INT PRIMARY KEY,
+    BranchName NVARCHAR(100),
+    -- Tambahkan kolom lain sesuai kebutuhan
+);
+
+-- Membuat tabel FactTransaction
+CREATE TABLE FactTransaction (
+    TransactionID INT PRIMARY KEY,
+    -- Tambahkan kolom untuk foreign key ke tabel dimensi
+    AccountID INT,
+    CustomerID INT,
+    BranchID INT,
+    TransactionDate DATETIME,
+    Amount DECIMAL(18, 2),
+    -- Tambahkan kolom lain sesuai kebutuhan
+    FOREIGN KEY (AccountID) REFERENCES DimAccount(AccountID),
+    FOREIGN KEY (CustomerID) REFERENCES DimCustomer(CustomerID),
+    FOREIGN KEY (BranchID) REFERENCES DimBranch(BranchID)
+);
